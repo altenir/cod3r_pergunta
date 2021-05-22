@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:perguntas/resposta.dart';
+import './questao.dart';
 
-main() {
-  runApp(new PerguntaApp());
-}
+main() => runApp(new PerguntaApp());
 
-class PerguntaApp extends StatelessWidget {
-  void responder() {
-    print('Pergunta respondida!');
+// #######################
+// * ESTADO PRIVADO DO COMPONENTE
+// #######################
+class _PerguntaAppState extends State<PerguntaApp> {
+  var _perguntaSelecionada = 0;
+
+  // Método responder pergunta  no botão
+  void _responder() {
+    setState(() {
+      _perguntaSelecionada++;
+    });
+
+    print(_perguntaSelecionada);
   }
 
-  void Function() fucaoQueRetornaUmaOutraFuncao() {
-    return () {
-      print('Pergunta respondida #02!');
-    };
-  }
-
+  // BUILD
   @override
   Widget build(BuildContext context) {
     final List<String> perguntas = [
@@ -29,22 +34,22 @@ class PerguntaApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Text(perguntas[0]),
-            ElevatedButton(
-              child: Text('Resposta 1'),
-              onPressed: responder,
-            ),
-            ElevatedButton(
-              child: Text('Resposta 2'),
-              onPressed: responder,
-            ),
-            ElevatedButton(
-              child: Text('Resposta 3'),
-              onPressed: fucaoQueRetornaUmaOutraFuncao(),
-            ),
+            Questao(perguntas[_perguntaSelecionada]),
+            Resposta('Resposta 1'),
+            Resposta('Resposta 2'),
+            Resposta('Resposta 3'),
           ],
         ),
       ),
     );
+  }
+}
+
+// ###################
+// * COMPONENTE
+// ###################
+class PerguntaApp extends StatefulWidget {
+  _PerguntaAppState createState() {
+    return _PerguntaAppState();
   }
 }
