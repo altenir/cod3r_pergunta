@@ -9,37 +9,63 @@ main() => runApp(new PerguntaApp());
 // #######################
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
+  final List<Map> _perguntas = const [
+    {
+      'texto': 'Qual é a sua cor favorita?',
+      'respostas': ['Preto', 'Vermelho', 'Verde', 'Branco'],
+    },
+    {
+      'texto': 'Qual é o seu animal favorito?',
+      'respostas': ['Coelho', 'Cobra', 'Elefante', 'Leão'],
+    },
+    {
+      'texto': 'Qual o seu instrutor favorito?',
+      'respostas': ['Maria', 'João', 'Leo', 'Pedro'],
+    }
+  ];
 
   // Método responder pergunta  no botão
   void _responder() {
     setState(() {
       _perguntaSelecionada++;
     });
-
     print(_perguntaSelecionada);
+    print(_perguntas.length);
+  }
+
+  bool get temPerguntaSelecionada {
+    return _perguntaSelecionada < _perguntas.length;
   }
 
   // BUILD
   @override
   Widget build(BuildContext context) {
-    final List<String> perguntas = [
-      'Qual é a sua cor favorita?',
-      'Qual é o seu animal favorito?'
-    ];
+    List<String> respostas = temPerguntaSelecionada
+        ? _perguntas[_perguntaSelecionada]['respostas']
+        : null;
+    // List<Widget> widgets = respostas.map((t) => Resposta(t, _responder)).toList();
+    // for (String textoResp in respostas) {
+    //   widgets.add(Resposta(textoResp, _responder));
+    // }
 
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('Perguntas'),
         ),
-        body: Column(
-          children: [
-            Questao(perguntas[_perguntaSelecionada]),
-            Resposta('Resposta 1'),
-            Resposta('Resposta 2'),
-            Resposta('Resposta 3'),
-          ],
-        ),
+        body: temPerguntaSelecionada
+            ? Column(
+                children: [
+                  Questao(_perguntas[_perguntaSelecionada]['texto'].toString()),
+                  ...respostas.map((t) => Resposta(t, _responder)).toList(),
+                ],
+              )
+            : Center(
+                child: Text(
+                  'Parabéns!',
+                  style: TextStyle(fontSize: 28),
+                ),
+              ),
       ),
     );
   }
