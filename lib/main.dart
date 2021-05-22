@@ -26,11 +26,11 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
   // Método responder pergunta  no botão
   void _responder() {
-    setState(() {
-      _perguntaSelecionada++;
-    });
-    print(_perguntaSelecionada);
-    print(_perguntas.length);
+    if (temPerguntaSelecionada) {
+      setState(() {
+        _perguntaSelecionada++;
+      });
+    }
   }
 
   bool get temPerguntaSelecionada {
