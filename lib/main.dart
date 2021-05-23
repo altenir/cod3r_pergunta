@@ -24,8 +24,8 @@ class _PerguntaAppState extends State<PerguntaApp> {
     {
       'texto': 'Qual é o seu animal favorito?',
       'respostas': [
-        {'texto': 'Cobra', 'pontuacao': 10},
-        {'texto': 'Coelho', 'pontuacao': 5},
+        {'texto': 'Coelho', 'pontuacao': 10},
+        {'texto': 'Cobra', 'pontuacao': 5},
         {'texto': 'Elefante', 'pontuacao': 3},
         {'texto': 'Leão', 'pontuacao': 1},
       ],
@@ -63,7 +63,9 @@ class _PerguntaAppState extends State<PerguntaApp> {
         appBar: AppBar(
           title: Text('Perguntas'),
         ),
-        body: questionario.temPerguntaSelecionada ? questionario : Resultado(),
+        body: questionario.temPerguntaSelecionada
+            ? questionario
+            : Resultado(_pontuacaoTotal),
       ),
     );
   }
