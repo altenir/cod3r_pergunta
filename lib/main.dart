@@ -50,6 +50,13 @@ class _PerguntaAppState extends State<PerguntaApp> {
     print(_pontuacaoTotal);
   }
 
+  void _reiniciarQuestionario() {
+    setState(() {
+      _perguntaSelecionada = 0;
+      _pontuacaoTotal = 0;
+    });
+  }
+
   // BUILD
   @override
   Widget build(BuildContext context) {
@@ -65,7 +72,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
         ),
         body: questionario.temPerguntaSelecionada
             ? questionario
-            : Resultado(_pontuacaoTotal),
+            : Resultado(_pontuacaoTotal, _reiniciarQuestionario),
       ),
     );
   }
