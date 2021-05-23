@@ -66,13 +66,33 @@ class _PerguntaAppState extends State<PerguntaApp> {
         quandoResponder: _responder);
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: Text('Perguntas'),
         ),
-        body: questionario.temPerguntaSelecionada
-            ? questionario
-            : Resultado(_pontuacaoTotal, _reiniciarQuestionario),
+        body: Container(
+          child: Column(
+            children: [
+              questionario.temPerguntaSelecionada
+                  ? questionario
+                  : Resultado(_pontuacaoTotal, _reiniciarQuestionario),
+              // Divider(
+              //   height: 50,
+              //   thickness: 1,
+              //   indent: 10,
+              //   endIndent: 10,
+              // ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                'Curso de Flutter COD3R',
+                style: TextStyle(fontSize: 22, color: Colors.deepPurple),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
